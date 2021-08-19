@@ -1,0 +1,3 @@
+[Base]
+yam.dir=base_dir_to_store_the_music
+radio.stationId=stationid_to_load_music_(for ex: user:my_user)
