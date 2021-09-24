@@ -15,7 +15,7 @@ BASE_PATH=config.get('Base', 'yam.dir')
 
 print (BASE_PATH)
 
-trackIds = [38551038]
+trackIds = [73632845]
 
 token = ''
 with open('.token', "r") as file:

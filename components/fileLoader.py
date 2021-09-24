@@ -7,6 +7,7 @@ from eyed3.id3 import Tag
 import time
 
 from yandex_music import Track
+from yandex_music import Supplement
 
 
 class FileLoader():
@@ -62,6 +63,7 @@ class FileLoader():
     tag.album = albumName
     tag.title = title
     self.addGenre(tag)
+    self.addLyrics(tag)
     
 
   def isLoadNeeded(self)-> bool:
@@ -75,23 +77,44 @@ class FileLoader():
 
     if os.path.isfile(path):
       tag = self.getTag()
-      self.addGenre(tag)
-      self.addTrackId(tag, True)
+      r1 = self.addGenre(tag)
+      r2 = self.addTrackId(tag)
+      r3 = self.addLyrics(tag)
+      if r1 or r2 or r3:
+        tag.save()
+        print(f'Track info updated')
       return False
     return True
 
   def addGenre(self, tag: Tag):
+    if tag.genre:
+      return False;
     album = self.track.albums[0]
     tag.genre = album.genre
+    return True;
 
-  def addTrackId(self, tag: Tag, save: bool=False):
+  def addLyrics(self, tag: Tag):
+    if tag.lyrics.get(""):
+      print('Lyrics in the tag. Skip setting it')
+      return False;
+    #print(tag.lyrics.get("").text)
+    supplement = self.track.get_supplement()
+    if supplement.lyrics:
+        print('Set Lyrics')
+        tag.lyrics.set(supplement.lyrics.full_lyrics)
+        return True;
+    else:
+        print('No lyrics')
+    return False
+
+  def addTrackId(self, tag: Tag):
     tIds = tag.track_num
 
     if tIds[0] is None:
       aId = self.track.albums[0].id
       tag.track_num = (aId, self.track.id)
-      if save is True:
-        tag.save()
+      return True
+    return False
 
   def getTrackPath(self):
     if self.trackPath is None:
