@@ -1,4 +1,5 @@
 import configparser
+import sys
 import concurrent.futures
 from typing import List
 import eyed3
@@ -16,6 +17,11 @@ BASE_PATH=config.get('Base', 'yam.dir')
 print (BASE_PATH)
 
 trackIds = [73632845]
+
+if len(sys.argv) > 1:
+  trackIds = []
+  for i in range(1, len(sys.argv)):
+    trackIds.append(sys.argv[i])
 
 token = ''
 with open('.token', "r") as file:
