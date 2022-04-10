@@ -48,7 +48,7 @@ with open('.token', "r") as file:
 if token is None or token == '':
   raise ValueError('Token is not defined')
 
-client = Client.from_token(token)
+client = client = Client(token).init()
 
 radio = Radio(client)
 

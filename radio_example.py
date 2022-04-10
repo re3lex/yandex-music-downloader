@@ -14,7 +14,7 @@ if token is None or token == '':
   raise ValueError('Toke is not defined')
 
 # API instance
-client = Client(token=token)
+client = client = Client(token).init()
 
 # Get random station
 #_stations = client.rotor_stations_list()

@@ -16,7 +16,7 @@ BASE_PATH=config.get('Base', 'yam.dir')
 
 print (BASE_PATH)
 
-trackIds = [73632845]
+trackIds = [592649]
 
 if len(sys.argv) > 1:
   trackIds = []
@@ -30,7 +30,7 @@ with open('.token', "r") as file:
 if token is None or token == '':
   raise ValueError('Token is not defined')
 
-client = Client.from_token(token)
+client = client = Client(token).init()
 
 loaded = []
 tracks = client.tracks(trackIds)

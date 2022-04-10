@@ -1,2 +1,2 @@
-eyeD3==0.9.5
-yandex_music==1.0.0
+eyeD3==0.9.6
+yandex_music==2.0.1
